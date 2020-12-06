@@ -9,7 +9,7 @@ let widokUczniow = new userViews();
 let aplikacja = new appViews();
 
 uczniowie.zapiszUzytkownika("aaa", "sss", 24, true, "k")
-uczniowie.zapiszUzytkownika("def", "sss", 45, true, "m")
+uczniowie.zapiszUzytkownika("aab", "sss", 45, true, "m")
 uczniowie.zapiszUzytkownika("swd", "sss", 12, false, "k")
 console.log(uczniowie.zaloguj("swd", "sss"))
 console.log(uczniowie.zaloguj("sad", "wer"))
@@ -21,6 +21,8 @@ console.log(widokUczniow.tableView(uczniowie.sortujWiekiem("desc")))
 
 
 console.log(uczniowie.listujUzytkownikow())
+
+console.log(uczniowie.sprawdzSekret('e533e4c4aad46b1f062c7b1ce862634e'))
 console.log('start servera');
 
 var express = require('express');

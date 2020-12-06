@@ -1,3 +1,5 @@
+var md5 = require("md5")
+
 class Users{
     constructor(){
         this.tablica = []
@@ -5,8 +7,18 @@ class Users{
         console.log("inicjalizuje pustą bazę użytkowników")
     }
 
+    sprawdzSekret(sekret){
+        let wynik = this.tablica.find(element => element.sekret == sekret)
+        if (typeof wynik !== 'undefined'){
+            return wynik.id
+        } else {
+            return null
+        }
+    }
+
     zapiszUzytkownika(login, haslo, wiek, czyUczen, plec){
-        let user = {id: this.licznik, login: login, pass: haslo, wiek: wiek, uczen: czyUczen, plec: plec}
+        const mojmd5 = md5('moj sekretny string: ' + login + haslo)
+        let user = {id: this.licznik, login: login, pass: haslo, wiek: wiek, uczen: czyUczen, plec: plec, sekret: mojmd5}
         console.log("dodaje użytkownika", user)
         this.tablica.push(user)
         this.licznik++
@@ -16,7 +28,7 @@ class Users{
         let wynik = this.tablica.find(element => element.login == login && element.pass == haslo)
         console.log("pasujacy rekord: ", wynik)
         if (typeof wynik !== 'undefined'){
-            return wynik.id
+            return {id: wynik.id, sekret: wynik.sekret}
         } else {
             return null
         }

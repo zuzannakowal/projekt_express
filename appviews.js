@@ -1,6 +1,75 @@
 "use strict";
 
 class appViews{
+    rysujStroneLogowania(msg){
+        let html = ''
+   //     html.
+  //      html += this.rysujMenuNiezalogowane() + "<br>" + this.rysujMsgBox(msg)
+        return html.concat(
+            this.rysujHeader(msg),
+            this.rysujMenu2(false),
+            "<br>",
+            this.rysujMsgBox(msg),
+            this.rysujFormularzLogowania(),
+            this.zakonczHTML()
+        )
+    }
+
+    rysujEkranNiezalogowany(msg){
+        let html = ''
+   //     html.
+  //      html += this.rysujMenuNiezalogowane() + "<br>" + this.rysujMsgBox(msg)
+        return html.concat(
+            this.rysujHeader(msg),
+            this.rysujMenuNiezalogowane(),
+            "<br>",
+            this.rysujMsgBox(msg),
+            this.zakonczHTML()
+        )
+    }
+
+    rysujEkranRejestracji(czyZalogowany){
+        let html = ''
+   //     html.
+  //      html += this.rysujMenuNiezalogowane() + "<br>" + this.rysujMsgBox(msg)
+
+        return html.concat(
+            this.rysujHeader("Rejestracja"),
+            this.rysujMenu2(czyZalogowany),
+            "<br>",
+            this.rysujFormularzRejestracji(),
+            this.zakonczHTML()
+        )
+    }
+
+    rysujMenu2(czyZalogowany){
+        if (czyZalogowany){
+            return this.rysujMenuZalogowane()
+        } else {
+            return this.rysujMenuNiezalogowane()
+        }
+    }
+
+    rysujHeader(title){
+        const html = `
+        <html><head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>${title}</title>
+        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="stylesheet" href="css/style.css">
+        </head><body>
+        `
+
+        return html
+    }
+
+    zakonczHTML(){
+        const html = '</body></html>'
+        return html
+    }
+
     rysujMenu(menuTab, nazwaKlasy){
         let html = `<table class="${nazwaKlasy}"><tr>`;
         menuTab.forEach(element => {
@@ -25,7 +94,10 @@ class appViews{
     }
 
     rysujMsgBox(info){
-        let html = `<div class="msgbox">${info}</div>`
+        let html = ''
+        if (info !== null){
+            html = `<div class="msgbox">${info}</div><br>`
+        }
         return html
     }
 

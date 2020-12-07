@@ -64,7 +64,6 @@ class Sesja{
             console.log("brak ciasteczka")
             return false
         } else {
-
             let sekretValue = req.cookies[this.ciasteczko]
             let userid = this.baza.sprawdzSekret(sekretValue)
             console.log("logowanie: ", sekretValue, userid)
@@ -79,34 +78,38 @@ class Sesja{
 
 const sesja = new Sesja(uczniowie)
 
+function sprawdzLogowanie(req, res){
+    if (!sesja.czyZalogowany(req)){
+        res.send(aplikacja.rysujEkranNiezalogowany("Zaloguj się!"))
+        return false
+    } else {
+        return true
+    }
+}
 
 app.get("/show", function(req, res){
-    if (!sesja.czyZalogowany(req)){
-        res.send(aplikacja.rysujMenuNiezalogowane() + "<br>" + aplikacja.rysujMsgBox("zaloguj się!"))
-        return
-    }
+    if (!sprawdzLogowanie(req,res)) { return }
+
     res.send(widokUczniow.tableView(uczniowie.sortujWiekiem("desc")))
 })
 
 app.get("/", function(req,res){
-    res.send(aplikacja.rysujMenuNiezalogowane() + "<br>" + aplikacja.rysujMsgBox("zaloguj się!"))
+    if (!sprawdzLogowanie(req,res)) { return }
 })
 
 app.get('/admin', function(req, res){
-    if (!sesja.czyZalogowany(req)){
-        res.send(aplikacja.rysujMenuNiezalogowane() + "<br>" + aplikacja.rysujMsgBox("zaloguj się!"))
-        return
-    }
-    
+    if (!sprawdzLogowanie(req,res)) { return }
+        
     res.send(aplikacja.rysujMenuZalogowane() + '<br>' + aplikacja.rysujMenuAdmin())
 })
 
 app.get('/register', function(req, res){
-    res.send(aplikacja.rysujFormularzRejestracji())
+
+    res.send(aplikacja.rysujEkranRejestracji(sesja.czyZalogowany(req)))
 })
 
 app.get('/login', function(req, res){
-    res.send(aplikacja.rysujFormularzLogowania())
+    res.send(aplikacja.rysujStroneLogowania(null))
 })
 
 app.post("/login", function(req, res){
@@ -116,7 +119,7 @@ app.post("/login", function(req, res){
             sesja.zapamietaj(res, wynik.sekret)
             res.redirect("/admin")
         } else {
-            res.send(aplikacja.rysujMenuNiezalogowane() + "<br>" + aplikacja.rysujMsgBox("błędny login lub hasło!") + "<br>" + aplikacja.rysujFormularzLogowania())
+            res.send(aplikacja.rysujStroneLogowania("błędny login lub hasło!"))
         }
     } else {
         console.log("brak zmiennych logowania")
@@ -129,6 +132,8 @@ app.get("/logout", function(req, res){
     sesja.wyloguj(res)
     res.send(aplikacja.rysujMenuNiezalogowane() + "<br>" + aplikacja.rysujMsgBox("zostałeś wylogowany"))
 })
+
+app.use(express.static('static'));
 
 app.listen(PORT, function(){
     console.log('start serwera na porcie ' + PORT)

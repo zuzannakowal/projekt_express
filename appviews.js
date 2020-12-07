@@ -51,7 +51,7 @@ class appViews{
 
     rysujFormularzLogowania(){
         let html = `<div class="rejestracja">
-        <form method="POST" action="/login2">
+        <form method="POST" action="/login">
         login: <input type="text" name="login"><br>
         password: <input type="password" name="pass"><br>
         <input type="submit" value="submit">

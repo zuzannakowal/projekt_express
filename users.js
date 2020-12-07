@@ -26,7 +26,7 @@ class Users{
 
     zaloguj(login, haslo){
         let wynik = this.tablica.find(element => element.login == login && element.pass == haslo)
-        console.log("pasujacy rekord: ", wynik)
+        console.log("pasujacy rekord: ", wynik, 'dla loginu: ', {login: login, pass: haslo})
         if (typeof wynik !== 'undefined'){
             return {id: wynik.id, sekret: wynik.sekret}
         } else {

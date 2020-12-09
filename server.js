@@ -100,16 +100,24 @@ app.get('/admin', function(req, res){
     res.send(aplikacja.rysujEkranAdmin("wybierz raport"))
 })
 
+/*
 app.get("/sort", function(req, res){
     if (!sprawdzLogowanie(req,res)) { return }
     const dane = uczniowie.sortujWiekiem("asc")
     res.send(aplikacja.rysujEkranRaportu1(dane, "asc", "sort"))    
 })
+*/
 
-app.post("/sort", function(req, res){
+app.all("/sort", function(req, res){
     if (!sprawdzLogowanie(req,res)) { return }
     console.log(req.body)
-    const order = req.body.order
+    let order = "asc"
+    if (typeof req.body.order !== 'undefined'){
+        console.log("jest podany kierunek")
+        if (req.body.order == "desc"){
+            order = req.body.order
+        }
+    }
     const dane = uczniowie.sortujWiekiem(order)
     res.send(aplikacja.rysujEkranRaportu1(dane, order, "sort"))  
 })

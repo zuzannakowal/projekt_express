@@ -2,6 +2,8 @@
     font-size: 24px;
     background-color: cornflowerblue;
     text-align: center;
+    width: 300px;
+    color: white;
 }
 
 a{
@@ -9,14 +11,24 @@ a{
     text-decoration: none;
 }
 
+td{
+    border: solid black 1px;
+}
+
 .menuCzerwone{
+    width: 300px;
     background-color: tomato;
+    text-align: center;
 }
 
 .menuNiebieskie{
-    background-color: royalblue;
+    width: 300px;
+    text-align: center;
+    background-color: cornflowerblue;
 }
 
 .menuZolte{
+    width: 300px;
     background-color: sandybrown;
+    text-align: center;
 }

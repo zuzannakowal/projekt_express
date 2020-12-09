@@ -3,6 +3,7 @@
 const Users = require("./users.js")
 const userViews = require("./userviews.js")
 const appViews = require("./appviews.js")
+const Sesja = require("./session.js")
 
 let uczniowie = new Users();
 let widokUczniow = new userViews();
@@ -15,8 +16,6 @@ uczniowie.zapiszUzytkownika("swd", "sss", 12, false, "k")
 console.log('start servera');
 
 var express = require('express');
-/*const { Server } = require('http');
-const { dirname } = require('path');*/
 
 var path = require("path")
 
@@ -33,39 +32,6 @@ const { type } = require("os");
 const { nextTick } = require("process");
 
 app.use(cookieParser())
-
-class Sesja{
-    constructor(baza){
-        this.baza = baza
-        this.ciasteczko = "usersecret"
-    }
-    zapamietaj(res, sekret){
-        res.cookie(this.ciasteczko, sekret, {
-            expires: new Date(Date.now() + 1000 * 60 * 60 * 4),
-            httpOnly:true
-        })
-        return true
-    }
-    wyloguj(res){
-        res.clearCookie(this.ciasteczko)
-        return true
-    }
-    czyZalogowany(req){
-        if (typeof req.cookies[this.ciasteczko] === 'undefined'){
-            console.log("brak ciasteczka")
-            return false
-        } else {
-            let sekretValue = req.cookies[this.ciasteczko]
-            let userid = this.baza.sprawdzSekret(sekretValue)
-            console.log("logowanie: ", sekretValue, userid)
-            if (userid !== null){
-                return true
-            } else {
-                return false
-            }
-        }
-    }
-}
 
 const sesja = new Sesja(uczniowie)
 
@@ -99,14 +65,6 @@ app.get('/admin', function(req, res){
         
     res.send(aplikacja.rysujEkranAdmin("wybierz raport"))
 })
-
-/*
-app.get("/sort", function(req, res){
-    if (!sprawdzLogowanie(req,res)) { return }
-    const dane = uczniowie.sortujWiekiem("asc")
-    res.send(aplikacja.rysujEkranRaportu1(dane, "asc", "sort"))    
-})
-*/
 
 app.all("/sort", function(req, res){
     if (!sprawdzLogowanie(req,res)) { return }

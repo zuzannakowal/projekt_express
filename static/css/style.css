@@ -4,6 +4,19 @@
     text-align: center;
 }
 
+a{
+    color: white;
+    text-decoration: none;
+}
+
 .menuCzerwone{
     background-color: tomato;
+}
+
+.menuNiebieskie{
+    background-color: royalblue;
+}
+
+.menuZolte{
+    background-color: sandybrown;
 }

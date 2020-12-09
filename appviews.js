@@ -1,10 +1,12 @@
 "use strict";
 
 class appViews{
+    constructor(widokUczniow){
+        this.widokUczniow = widokUczniow
+    }
+
     rysujStroneLogowania(msg){
         let html = ''
-   //     html.
-  //      html += this.rysujMenuNiezalogowane() + "<br>" + this.rysujMsgBox(msg)
         return html.concat(
             this.rysujHeader(msg),
             this.rysujMenu2(false),
@@ -17,8 +19,6 @@ class appViews{
 
     rysujEkranNiezalogowany(msg){
         let html = ''
-   //     html.
-  //      html += this.rysujMenuNiezalogowane() + "<br>" + this.rysujMsgBox(msg)
         return html.concat(
             this.rysujHeader(msg),
             this.rysujMenuNiezalogowane(),
@@ -28,15 +28,85 @@ class appViews{
         )
     }
 
-    rysujEkranRejestracji(czyZalogowany){
+    rysujEkranZalogowany(msg){
         let html = ''
-   //     html.
-  //      html += this.rysujMenuNiezalogowane() + "<br>" + this.rysujMsgBox(msg)
+        return html.concat(
+            this.rysujHeader(msg),
+            this.rysujMenuZalogowane(),
+            "<br>",
+            this.rysujMsgBox(msg),
+            this.zakonczHTML()
+        )
+    }
 
+    rysujEkranAdmin(msg){
+        let html = ''
+        return html.concat(
+            this.rysujHeader(msg),
+            this.rysujMenuZalogowane(),
+            "<br>",
+            this.rysujMenuAdmin(),
+            "<br>",
+            this.rysujMsgBox(msg),
+            this.zakonczHTML()
+        )
+    }
+
+    rysujEkranRaportu1(daneTab, order, msg){
+        let html = ''
+        return html.concat(
+            this.rysujHeader(msg),
+            this.rysujMenuZalogowane(),
+            "<br>",
+            this.rysujMenuAdmin(),
+            "<br>",
+            this.rysujMsgBox(msg),
+            "<br>",
+            this.rysujFormularzSortowania(order),
+            this.widokUczniow.ageTableView(daneTab),
+            this.zakonczHTML()
+        )
+    }
+
+    rysujEkranRaportu2(daneTab1, daneTab2, msg){
+        let html = ''
+        return html.concat(
+            this.rysujHeader(msg),
+            this.rysujMenuZalogowane(),
+            "<br>",
+            this.rysujMenuAdmin(),
+            "<br>",
+            this.rysujMsgBox(msg),
+            "<br>",
+            this.widokUczniow.genderTableView(daneTab1),
+            "<br>",
+            this.widokUczniow.genderTableView(daneTab2),
+            this.zakonczHTML()
+        )
+    }
+
+    rysujEkranRaportu3(daneTab,msg){
+        let html = ''
+        return html.concat(
+            this.rysujHeader(msg),
+            this.rysujMenuZalogowane(),
+            "<br>",
+            this.rysujMenuAdmin(),
+            "<br>",
+            this.rysujMsgBox(msg),
+            "<br>",
+            this.widokUczniow.fullTableView(daneTab),
+            this.zakonczHTML()
+        )
+    }
+
+    rysujEkranRejestracji(czyZalogowany, msg){
+        let html = ''
         return html.concat(
             this.rysujHeader("Rejestracja"),
             this.rysujMenu2(czyZalogowany),
             "<br>",
+            this.rysujMsgBox(msg),
             this.rysujFormularzRejestracji(),
             this.zakonczHTML()
         )
@@ -61,7 +131,6 @@ class appViews{
         <link rel="stylesheet" href="css/style.css">
         </head><body>
         `
-
         return html
     }
 
@@ -84,7 +153,7 @@ class appViews{
     }
 
     rysujMenuZalogowane(){
-        return this.rysujMenu([{name:'main',url:'/'},{name:'register',url:'/register'},{name:'login',url:'/login'},{name:'admin',url:'/admin'},{name:'logout',url:'/logout'}]
+        return this.rysujMenu([{name:'main',url:'/'},{name:'register',url:'/register'},{name:'admin',url:'/admin'},{name:'logout',url:'/logout'}]
         ,'menuNiebieskie')
     }
 
@@ -103,7 +172,7 @@ class appViews{
 
     rysujFormularzRejestracji(){
         let html = `<div class="rejestracja">
-        <form method="POST" action="/register2">
+        <form method="POST" action="/register">
         login: <input type="text" name="login"><br>
         password: <input type="password" name="pass"><br>
         wiek: <select name="wiek">`
@@ -113,7 +182,7 @@ class appViews{
         uczeń: <input type="checkbox" name="uczen" value="1"><br>
         płeć: <input type="radio" name="gender" value="m">
         <label for="male">M</label>
-        <input type="radio" name="gender" value="k">
+        <input type="radio" name="gender" value="k" checked>
         <label for="female">K</label><br>
         <input type="submit" value="submit">
         </form>
@@ -127,6 +196,26 @@ class appViews{
         login: <input type="text" name="login"><br>
         password: <input type="password" name="pass"><br>
         <input type="submit" value="submit">
+        </form>
+        </div>`;
+        return html;
+    }
+
+    rysujFormularzSortowania(order){
+        let html = `<div class="sortowanie">
+        <form onchange="this.submit()" method="POST" action="/sort">
+        <input type="radio" name="order" value="asc" `
+        if (order == "asc"){
+            html += 'checked'
+        }
+        html += `>
+        <label>rosnąco</label>
+        <input type="radio" name="order" value="desc" `
+        if (order == "desc"){
+            html += 'checked'
+        }
+        html += `>
+        <label>malejąco</label><br>
         </form>
         </div>`;
         return html;

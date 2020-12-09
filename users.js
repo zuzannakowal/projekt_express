@@ -17,11 +17,17 @@ class Users{
     }
 
     zapiszUzytkownika(login, haslo, wiek, czyUczen, plec){
+        let wynik = this.tablica.find(element => element.login == login)
+        if (typeof wynik !== 'undefined'){
+            console.log("próba rejestracji z istniejącym loginem")
+            return false
+        }
         const mojmd5 = md5('moj sekretny string: ' + login + haslo)
         let user = {id: this.licznik, login: login, pass: haslo, wiek: wiek, uczen: czyUczen, plec: plec, sekret: mojmd5}
         console.log("dodaje użytkownika", user)
         this.tablica.push(user)
         this.licznik++
+        return true
     }
 
     zaloguj(login, haslo){
@@ -53,7 +59,6 @@ class Users{
         let wynik = []
         this.tablica.forEach((element, idx) => {wynik.push(element)})
         wynik.sort(function(elem1, elem2){
-            console.log('porownuje element: ', elem1, ' z elementem 2: ', elem2)
             if (kierunek == "asc"){
                 return elem1.wiek - elem2.wiek;
             } else {

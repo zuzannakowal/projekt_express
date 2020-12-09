@@ -1,7 +1,7 @@
 "use strict";
 
 class userViews{
-    tableView(tablica){
+    fullTableView(tablica){
         let html = "<table>"
         tablica.forEach(elem => {
             html += "<tr><td>id: " + elem.id  + "</td><td>user: " + elem.login  + " - " + elem.pass + "</td><td>uczeń: ";
@@ -11,6 +11,23 @@ class userViews{
                 html += "&#9744"
             }
             html += "</td><td> wiek: " + elem.wiek + "</td><td> płeć: " + elem.plec + "</td></tr>"
+        });
+        html += "</table>"
+        return html
+    }
+
+    ageTableView(tablica){
+        let html = "<table>"
+        tablica.forEach(elem => {
+            html += "<tr><td>id: " + elem.id  + "</td><td>user: " + elem.login  + " - " + elem.pass + "</td><td> wiek: " + elem.wiek + "</td></tr>"
+        });
+        html += "</table>"
+        return html
+    }
+    genderTableView(tablica){
+        let html = "<table>"
+        tablica.forEach(elem => {
+            html += "<tr><td>id: " + elem.id  + "</td><td> płeć: " + elem.plec + "</td></tr>"
         });
         html += "</table>"
         return html

@@ -11,7 +11,15 @@ a{
     text-decoration: none;
 }
 
-td{
+.fullTd{
+    border: solid black 1px;
+}
+
+.ageTd{
+    border: solid black 1px;
+}
+
+.genderTd{
     border: solid black 1px;
 }
 

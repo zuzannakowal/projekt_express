@@ -4,13 +4,13 @@ class userViews{
     fullTableView(tablica){
         let html = "<table>"
         tablica.forEach(elem => {
-            html += "<tr><td>id: " + elem.id  + "</td><td>user: " + elem.login  + " - " + elem.pass + "</td><td>uczeń: ";
+            html += `<tr><td class="fullTd">id: ` + elem.id  + `</td><td class="fullTd">user: ` + elem.login  + " - " + elem.pass + `</td><td class="fullTd">uczeń: `;
             if (elem.uczen){
                 html += "&#9745"
             } else {
                 html += "&#9744"
             }
-            html += "</td><td> wiek: " + elem.wiek + "</td><td> płeć: " + elem.plec + "</td></tr>"
+            html += `</td><td class="fullTd"> wiek: ` + elem.wiek + `</td><td class="fullTd"> płeć: ` + elem.plec + "</td></tr>"
         });
         html += "</table>"
         return html
@@ -19,7 +19,7 @@ class userViews{
     ageTableView(tablica){
         let html = "<table>"
         tablica.forEach(elem => {
-            html += "<tr><td>id: " + elem.id  + "</td><td>user: " + elem.login  + " - " + elem.pass + "</td><td> wiek: " + elem.wiek + "</td></tr>"
+            html += `<tr><td class="ageTd">id: ` + elem.id  + `</td><td class="ageTd">user: ` + elem.login  + " - " + elem.pass + `</td><td class="ageTd"> wiek: ` + elem.wiek + "</td></tr>"
         });
         html += "</table>"
         return html
@@ -27,7 +27,7 @@ class userViews{
     genderTableView(tablica){
         let html = "<table>"
         tablica.forEach(elem => {
-            html += "<tr><td>id: " + elem.id  + "</td><td> płeć: " + elem.plec + "</td></tr>"
+            html += `<tr><td class="genderTd">id: ` + elem.id  + `</td><td class="genderTd"> płeć: ` + elem.plec + "</td></tr>"
         });
         html += "</table>"
         return html

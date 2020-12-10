@@ -2,7 +2,7 @@
     font-size: 24px;
     background-color: cornflowerblue;
     text-align: center;
-    width: 300px;
+    width: 320px;
     color: white;
 }
 
@@ -24,19 +24,19 @@ a{
 }
 
 .menuCzerwone{
-    width: 300px;
+    width: 320px;
     background-color: tomato;
     text-align: center;
 }
 
 .menuNiebieskie{
-    width: 300px;
+    width: 320px;
     text-align: center;
     background-color: cornflowerblue;
 }
 
 .menuZolte{
-    width: 300px;
+    width: 320px;
     background-color: sandybrown;
     text-align: center;
 }

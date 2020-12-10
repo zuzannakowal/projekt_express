@@ -171,31 +171,31 @@ class appViews{
     }
 
     rysujFormularzRejestracji(){
-        let html = `<div class="rejestracja">
+        let html = `<div class="rejestracja"><table class="register">
         <form method="POST" action="/register">
-        login: <input type="text" name="login"><br>
-        password: <input type="password" name="pass"><br>
-        wiek: <select name="wiek">`
+        <tr><td class="registerTd">login: </td><td class="registerTd"><input type="text" name="login"></td></tr><br>
+        <tr><td class="registerTd">password: </td><td class="registerTd"><input type="password" name="pass"></td></tr><br>
+        <tr><td class="registerTd">wiek: </td><td class="registerTd"><select name="wiek">`
         for (let i = 10; i <= 50; i++)
             html += `<option value="${i}">${i}</option>`
-        html += `</select><br>
-        uczeń: <input type="checkbox" name="uczen" value="1"><br>
-        płeć: <input type="radio" name="gender" value="m">
+        html += `</select></td></tr><br>
+        <tr><td class="registerTd">uczeń: </td><td class="registerTd"><input type="checkbox" name="uczen" value="1"></td></tr><br>
+        <tr><td class="registerTd">płeć: </td><td class="registerTd"><input type="radio" name="gender" value="m">
         <label for="male">M</label>
         <input type="radio" name="gender" value="k" checked>
-        <label for="female">K</label><br>
-        <input type="submit" value="submit">
+        <label for="female">K</label></td></tr><br>
+        <tr><td class="registerTd"><input type="submit" value="submit"></td></tr></table>
         </form>
         </div>`;
         return html;
     }
 
     rysujFormularzLogowania(){
-        let html = `<div class="rejestracja">
+        let html = `<div class="logowanie"><table class="login">
         <form method="POST" action="/login">
-        login: <input type="text" name="login"><br>
-        password: <input type="password" name="pass"><br>
-        <input type="submit" value="submit">
+        <tr><td class="loginTd">login: </td><td class="loginTd"><input type="text" name="login"></td></tr><br>
+        <tr><td class="loginTd">password: </td><td class="loginTd"><input type="password" name="pass"></td></tr><br>
+        <tr><td class="loginTd"><input type="submit" value="submit"></td></tr></table>
         </form>
         </div>`;
         return html;
